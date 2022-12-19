@@ -4,15 +4,14 @@ from src.cell import Cell
 from src.formula import Formula
 
 class Spreadsheet:
-
     def __init__(self):
         self.data = defaultdict(self._cell_factory)
 
-    def _cell_factory(self)->Cell:
+    def _cell_factory(self) -> Cell:
         return Cell(self,  formula=Formula(''))
 
     # returns value in cell
-    def get_cell_value(self, cell: str):
+    def get_cell_value(self, cell: str) -> int | float:
         return self.data[cell].val
     
     def set_cell_value(self, cell: str, value: object):
@@ -23,7 +22,7 @@ class Spreadsheet:
 
         self.data[cell].set_formula(Formula(value))
 
-    def detect_cycle(self, start, formula: Formula) -> bool:
+    def detect_cycle(self, start: str, formula: Formula) -> bool:
         stack = [formula]
         while stack:
             f = stack.pop()

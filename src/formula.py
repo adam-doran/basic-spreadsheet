@@ -6,16 +6,16 @@ import re
 """
 
 class Formula:
-    def __init__(self, formula: object, sup_ops=['+','-','*','/']):
+    def __init__(self, formula: object, sup_ops: list[str] = ['+','-','*','/']):
         self._references = []
         self.formula = self.format_formula(formula)
         self.supported_operations = '|'.join(map(re.escape, sup_ops))
         self.extract_references()
     
-    def __str__(self):
+    def __str__(self) -> str:
         return self.formula
 
-    def format_formula(self, formula):
+    def format_formula(self, formula: object):
         formula = str(formula).lstrip('=')
         formula = formula.replace(' ', '')
         return formula
@@ -29,15 +29,11 @@ class Formula:
                     raise ValueError("Unsupported characters in cell name")
                 self._references.append(arg)
     
-    def eval(self,params):
+    def eval(self, params: dict) -> int | float:
         if self.formula == '':
             return 0
         return eval(self.formula, params)
 
     @property
-    def references(self):
+    def references(self) -> list[str]:
         return self._references
-
-if __name__ == '__main__':
-    f = Formula('A1+A2-64+A3+9')
-    print(f.references)
