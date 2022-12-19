@@ -41,14 +41,14 @@ class Spreadsheet:
 if __name__ == '__main__':
     s = Spreadsheet()
 
-    s.set_cell_value('A1', '13')
-    s.set_cell_value('A2','14')
+    s.set_cell_value('A1', '7')
+    s.set_cell_value('A2','3')
 
     print(s.get_cell_value('A1'))
-    s.set_cell_value('A3', '=A1+A2')
+    s.set_cell_value('A3', '=A2/A1')
     print(s.get_cell_value('A3'))
 
     s.set_cell_value('A4', '=A1+A2+A3')
     print(s.get_cell_value('A4'))
 
-    # s.set_cell_value('A1','A4')
+    # # s.set_cell_value('A1','A4')

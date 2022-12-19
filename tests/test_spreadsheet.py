@@ -35,3 +35,19 @@ def test_detect_cyclic_reference(spreadsheet):
     with pytest.raises(Exception) as e:
         spreadsheet.set_cell_value('A2','A1')
     assert e.type == RecursionError
+
+def test_multiple_reference_updates(spreadsheet):
+    '''test that '''
+    spreadsheet.set_cell_value('A1', '2')
+    spreadsheet.set_cell_value('A2', 'A1+2')
+    spreadsheet.set_cell_value('A3', 'A1+A2')
+    spreadsheet.set_cell_value('A1', '4') 
+
+    assert spreadsheet.get_cell_value('A3') == 10
+    
+def test_references_removed(spreadsheet):
+    '''ensure that cells unsubscribe from old cells when formula changes'''
+    spreadsheet.set_cell_value('A1', 'A2')
+    assert spreadsheet.data['A2']._observers == set([spreadsheet.data['A1']])
+    spreadsheet.set_cell_value('A1', 2)
+    assert spreadsheet.data['A2']._observers == set([])
