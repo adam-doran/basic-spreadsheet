@@ -6,6 +6,8 @@ Supports insert and get operations on cells, as well as basic arithmetic operati
 Behaviour is to raise an error on any attempt to create cyclic formula references as 
 opposed to filling the cell with an error code and having to handle that throughout.
 
+When referencing a cell that doesn't exist, we create it and assume it evaluates to 0
+
 ## Improvements:
 For complex formulas with many shared references, observer updates are inefficient.
 
